@@ -10,38 +10,28 @@
  */
 int partition(int *array, int lo, int hi, size_t size)
 {
-	int pivot = array[lo];
+	int pivot = array[hi];
 	int start = lo;
-	int end = hi;
+	int end = lo;
 	int temp;
 
-	while (start < end)
+	for (; end < hi; end++)
 	{
-		while (array[start] <= pivot)
+		if (array[end] <= pivot)
 		{
+			temp = array[end];
+			array[end] = array[start];
+			array[start] = temp;
 			start++;
-		}
-		while (array[end] > pivot)
-		{
-			end--;
-		}
-		if (start < end)
-		{
-			temp = array[start];
-			array[start] = array[end];
-			array[end] = temp;
 			print_array(array, size);
 		}
+	}
+	temp = array[start];
+	array[start] = array[hi];
+	array[hi] = temp;
+	print_array(array, size);
 
-	}
-	if (start > end)
-	{
-		temp = array[lo];
-		array[lo] = array[end];
-		array[end] = temp;
-		print_array(array, size);
-	}
-	return (end);
+	return (start);
 }
 
 /**
@@ -56,7 +46,7 @@ void quick_sort(int *array, size_t size)
 	if (size < 2)
 		return;
 	else
-		quicksort(array, size - 1, size);
+		quicksort(array, 0, size);
 }
 
 /**
@@ -71,6 +61,10 @@ void quicksort(int *array, int lo, int hi)
 {
 	int location;
 
+	if (lo >= hi)
+	{
+		return;
+	}
 	if (lo < hi)
 	{
 		location = partition(array, 0, lo, hi);
