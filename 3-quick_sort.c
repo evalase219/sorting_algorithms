@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdio.h>
 
 /**
  * partition - Function partition the list into two parts.
@@ -24,7 +23,6 @@ int partition(int *array, int lo, size_t hi)
 	}
 	if (array[start + 1] > array[hi])
 		swap(array, start + 1, hi);
-	/* print_array(array, hi + 1); */
 
 	return (start + 1);
 }
@@ -70,6 +68,7 @@ void quicksort(int *array, int lo, size_t hi)
  *@arr: pointer to array
  *@idx1: first index
  *@idx2: second index
+ *Return: 1 (Success)
  */
 
 int swap(int arr[], int idx1, int idx2)
