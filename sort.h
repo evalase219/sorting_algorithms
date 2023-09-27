@@ -24,7 +24,7 @@ typedef struct listint_s
 /*helper functions*/
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
-void swap(int arr[], int idx1, int idx2);
+int swap(int arr[], int idx1, int idx2);
 int partition(int *array, int lo, size_t hi);
 void quicksort(int *array, int lo, size_t hi);
 

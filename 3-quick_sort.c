@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 /**
  * partition - Function partition the list into two parts.
@@ -21,8 +22,9 @@ int partition(int *array, int lo, size_t hi)
 			swap(array, start, end);
 		}
 	}
-	swap(array, start + 1, hi);
-	print_array(array, hi + 1);
+	if (array[start + 1] > array[hi])
+		swap(array, start + 1, hi);
+	/* print_array(array, hi + 1); */
 
 	return (start + 1);
 }
@@ -57,6 +59,7 @@ void quicksort(int *array, int lo, size_t hi)
 	if (lo < (int)hi)
 	{
 		location = partition(array, lo, hi);
+		print_array(array, hi + 1);
 		quicksort(array, lo, location - 1);
 		quicksort(array, location + 1, hi);
 	}
@@ -69,11 +72,12 @@ void quicksort(int *array, int lo, size_t hi)
  *@idx2: second index
  */
 
-void swap(int arr[], int idx1, int idx2)
+int swap(int arr[], int idx1, int idx2)
 {
 	int tmp;
 
 	tmp = arr[idx1];
 	arr[idx1] = arr[idx2];
 	arr[idx2] = tmp;
+	return (1);
 }
