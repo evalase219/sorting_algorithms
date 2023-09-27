@@ -5,33 +5,26 @@
  * @array: The list to be partitioned.
  * @lo: The lower bound
  * @hi: The higher bound.
- * 
+ *
  * Return: the pivot index
  */
-int partition(int *array, int lo, int hi, size_t size)
+int partition(int *array, int lo, size_t hi)
 {
 	int pivot = array[hi];
-	int start = lo;
-	int end = lo;
-	int temp;
+	int end, start = (lo - 1);
 
-	for (; end < hi; end++)
+	for (end = lo; end <= (int)hi - 1; end++)
 	{
-		if (array[end] <= pivot)
+		if (array[end] < pivot)
 		{
-			temp = array[end];
-			array[end] = array[start];
-			array[start] = temp;
 			start++;
-			print_array(array, size);
+			swap(array, start, end);
 		}
 	}
-	temp = array[start];
-	array[start] = array[hi];
-	array[hi] = temp;
-	print_array(array, size);
+	swap(array, start + 1, hi);
+	print_array(array, hi + 1);
 
-	return (start);
+	return (start + 1);
 }
 
 /**
@@ -45,8 +38,8 @@ void quick_sort(int *array, size_t size)
 {
 	if (size < 2)
 		return;
-	else
-		quicksort(array, 0, size);
+
+	quicksort(array, 0, size - 1);
 }
 
 /**
@@ -57,18 +50,30 @@ void quick_sort(int *array, size_t size)
  *
  * Return: Nothing
  */
-void quicksort(int *array, int lo, int hi)
+void quicksort(int *array, int lo, size_t hi)
 {
 	int location;
 
-	if (lo >= hi)
+	if (lo < (int)hi)
 	{
-		return;
-	}
-	if (lo < hi)
-	{
-		location = partition(array, 0, lo, hi);
+		location = partition(array, lo, hi);
 		quicksort(array, lo, location - 1);
 		quicksort(array, location + 1, hi);
 	}
+}
+
+/**
+ *swap - swap the the elements at the given indices
+ *@arr: pointer to array
+ *@idx1: first index
+ *@idx2: second index
+ */
+
+void swap(int arr[], int idx1, int idx2)
+{
+	int tmp;
+
+	tmp = arr[idx1];
+	arr[idx1] = arr[idx2];
+	arr[idx2] = tmp;
 }
