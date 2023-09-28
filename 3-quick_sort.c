@@ -12,17 +12,16 @@ int partition(int *array, int lo, int hi, size_t size)
 {
 	int pivot = array[hi];
 	int start = lo;
-	int end = lo;
-	int temp;
+	int end, temp;
 
-	for (; end < hi; end++)
+	for (end = lo; end < hi; start++)
 	{
 		if (array[end] <= pivot)
 		{
+			start++;
 			temp = array[end];
 			array[end] = array[start];
 			array[start] = temp;
-			start++;
 			print_array(array, size);
 		}
 	}
